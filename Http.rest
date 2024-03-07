@@ -1,0 +1,79 @@
+@host = http://127.0.0.1:8000
+@react_base_url = {{host}}/api
+@public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 17|tnzQ7GVl7HRJDdKT5fagJ11wyK2XK1q4qMn7N0vh
+@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: 18|EeKxSgY4pjIfygAp9ucqdSjtPgbzlHcYm5qhYJZr
+#-------PING------------#
+###
+
+//-----------------------------------------------------------------User's apis-------------------------------------------------------
+
+# @name userRegister
+POST {{react_base_url}}/UserRegister HTTP/1.1
+{{public_header}}
+
+{ 
+    "first_name":"ravindra",
+    "last_name":"ravindra",
+    "email":"jayathiy@gmail.com",
+    "password":"shivam123@gmail.com",
+    "password_confirmation":"shivam123@gmail.com"
+}
+###
+
+# @name userLogin
+POST {{react_base_url}}/UserLogin HTTP/1.1
+{{public_header}}
+
+{
+    "email":"jayathiy@gmail.com",
+    "password":"shivam123@gmail.com"
+}
+
+###
+
+# @name userprofile
+POST {{react_base_url}}/UserProfile HTTP/1.1
+{{auth_user_header}}
+###
+
+# @name userlogout
+POST {{react_base_url}}/UserLogout HTTP/1.1
+{{auth_user_header}}
+###
+
+//-----------------------------------------------------------------Admin's api-------------------------------------------------------
+
+# @name AdminRegister
+POST {{react_base_url}}/AdminRegister HTTP/1.1
+{{public_header}}
+
+{ 
+    "first_name":"ravindra",
+    "last_name":"ravindra",
+    "email":"ravindraunuri@gmail.com",
+    "password":"ravindraunuri@2002",
+    "password_confirmation":"ravindraunuri@2002"
+}
+###
+
+# @name AdminLogin
+POST {{react_base_url}}/AdminLogin HTTP/1.1
+{{public_header}}
+
+{
+    "email":"ravindraunuri@gmail.com",
+    "password":"ravindraunuri@2002"
+}
+
+###
+
+# @name Adminprofile
+POST {{react_base_url}}/AdminProfile HTTP/1.1
+{{auth_admin_header}}
+###
+
+# @name Adminlogout
+POST {{react_base_url}}/AdminLogout HTTP/1.1
+{{auth_admin_header}}
+###

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +17,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/AdminRegister', [AdminController::class, 'Registration']);
+Route::post('/AdminLogin', [AdminController::class, 'login']);
+
+Route::post('/UserRegister', [UserController::class, 'Registration']);
+Route::post('/UserLogin', [UserController::class, 'login']);
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+
+Route::group(['middleware' => ['auth:user']], function () {
+    Route::post('/UserProfile', [UserController::class, 'profile']);
+    Route::post('/UserLogout', [UserController::class, 'logout']);
+});
+
+Route::group(['middleware' => ['auth:admin']], function () {
+    Route::post('/AdminProfile', [AdminController::class, 'profile']);
+    Route::post('/AdminLogout', [AdminController::class, 'logout']);
 });
