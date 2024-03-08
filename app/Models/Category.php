@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Blogpost extends Model
+class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -17,9 +17,6 @@ class Blogpost extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'blogpost_name',
-        'category_id',
-        'blogpost_desc',
-        'upload_file',
+        'categoty_name'
     ];
 }
