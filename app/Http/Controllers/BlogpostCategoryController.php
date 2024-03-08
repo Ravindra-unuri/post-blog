@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class BlogpostCategoryController extends Controller
 {
     public function createCategory(){
-        //
+        
     }
 
     public function viewCategory(){
