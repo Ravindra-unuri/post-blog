@@ -11,12 +11,15 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'category';
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'categoty_name'
+        'category_name'
     ];
 }
