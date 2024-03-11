@@ -54,6 +54,12 @@ POST {{react_base_url}}/blogpost/storeBlogpost HTTP/1.1
 }
 ###
 
+# @name showBlogpost
+POST {{react_base_url}}/blogpost/showBlogpost HTTP/1.1
+{{auth_user_header}}
+
+###
+
 # @name updateBlogpost
 POST {{react_base_url}}/blogpost/updateBlogpost/5 HTTP/1.1
 {{auth_user_header}}
