@@ -89,6 +89,18 @@ POST {{react_base_url}}/like/doLike HTTP/1.1
 
 ###
 
+# @name allLike
+POST {{react_base_url}}/like/allLike HTTP/1.1
+{{auth_user_header}}
+
+###
+
+# @name likeDetail
+POST {{react_base_url}}/like/likeDetail/1 HTTP/1.1
+{{auth_user_header}}
+
+###
+
 # @name doComment
 POST {{react_base_url}}/comment/doComment HTTP/1.1
 {{auth_user_header}}
@@ -98,12 +110,6 @@ POST {{react_base_url}}/comment/doComment HTTP/1.1
     "blogpost_id":3,
     "comment":"Nices f fwkfnkwjnfkwd"
 }
-
-###
-
-# @name allLike
-POST {{react_base_url}}/like/allLike HTTP/1.1
-{{auth_user_header}}
 
 ###
 

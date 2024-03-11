@@ -57,6 +57,7 @@ Route::group(['middleware' => ['auth:user']], function () {
     Route::group(['prefix' => '/like'], function () {
         Route::post('/doLike', [LikeController::class, 'doLike']);
         Route::post('/allLike', [LikeController::class, 'allLike']);
+        Route::post('/likeDetail', [LikeController::class, 'likeDetail']);
     });
 
     Route::group(['prefix' => '/comment'], function () {

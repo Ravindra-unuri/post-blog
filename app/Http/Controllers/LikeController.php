@@ -35,7 +35,13 @@ class LikeController extends Controller
 
     public function likeDetail()
     {
-        // $data=Like::all();
+        $data=Like::leftjoin('');
+
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse(__('No likes found.'));
+        } else {
+            return $this->sendSuccessResponse(__('Success'), $data);
+        }
     }
 
     public function deleteLike()
