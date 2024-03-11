@@ -46,5 +46,6 @@ Route::group(['middleware' => ['auth:user']], function () {
 
     Route::group(['prefix' => '/blogpost'], function () {
         Route::post('/storeBlogpost', [BlogpostController::class, 'storeBlogpost']);
+        Route::post('/updateBlogpost/{id}', [BlogpostController::class, 'updateBlogpost']);
     });
 });

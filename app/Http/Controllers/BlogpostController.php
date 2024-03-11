@@ -34,9 +34,26 @@ class BlogpostController extends Controller
 
     // }
 
-    public function updateBlogpost()
+    public function updateBlogpost(Request $request, $id)
     {
-        //
+        $blogpost = Blogpost::find($id);
+
+        if (!$blogpost) {
+            return $this->sendNotfoundResponse(__('Blog post not found.'));
+        }
+
+        $update = Blogpost::where('id', $id)->update([
+            'blogpost_name' => $request->input('blogpost_name'),
+            'category_id' => $request->input('category_id'),
+            'blogpost_desc' => $request->input('blogpost_desc'),
+            'upload_file' => $request->input('upload_file')
+        ]);
+
+        if ($update) {
+            return $this->sendSuccessResponse(__('Blog post updated successfully'));
+        } else {
+            return $this->sendFailedResponse(__('Failed to update blog post. Please try again later.'));
+        }
     }
 
     public function deleteBlogpost()
