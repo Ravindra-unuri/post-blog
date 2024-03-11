@@ -4,6 +4,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogpostCategoryController;
 use App\Http\Controllers\BlogpostController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,5 +52,15 @@ Route::group(['middleware' => ['auth:user']], function () {
         Route::post('/showBlogpost', [BlogpostController::class, 'showBlogpost']);
         Route::post('/myBlogpost', [BlogpostController::class, 'myBlogpost']);
 
+    });
+
+    Route::group(['prefix' => '/like'], function () {
+        Route::post('/doLike', [LikeController::class, 'doLike']);
+        Route::post('/allLike', [LikeController::class, 'allLike']);
+    });
+
+    Route::group(['prefix' => '/comment'], function () {
+        Route::post('/doComment', [CommentController::class, 'doComment']);
+        Route::post('/allComment', [CommentController::class, 'allComment']);
     });
 });
