@@ -1,8 +1,8 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 17|tnzQ7GVl7HRJDdKT5fagJ11wyK2XK1q4qMn7N0vh
-@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: 18|EeKxSgY4pjIfygAp9ucqdSjtPgbzlHcYm5qhYJZr
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 3|DZfOxoG2nxdTatRA1ajzghnEM2P8qfAXOOwx6vsk
+@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|hABG3Zj2Fdu4UmqGQJPnCk1wIZqp2AFwBke6AJ5x
 #-------PING------------#
 ###
 
@@ -13,11 +13,11 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"ravindra",
-    "last_name":"ravindra",
-    "email":"jayathiy@gmail.com",
-    "password":"shivam123@gmail.com",
-    "password_confirmation":"shivam123@gmail.com"
+    "first_name":"ravindrasingh",
+    "last_name":"unuri",
+    "email":"ravindra@gmail.com",
+    "password":"ravindra123@gmail.com",
+    "password_confirmation":"ravindra123@gmail.com"
 }
 ###
 
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"jayathiy@gmail.com",
-    "password":"shivam123@gmail.com"
+    "email":"ravindra@gmail.com",
+    "password":"ravindra123@gmail.com"
 }
 
 ###
@@ -76,4 +76,13 @@ POST {{react_base_url}}/AdminProfile HTTP/1.1
 # @name Adminlogout
 POST {{react_base_url}}/AdminLogout HTTP/1.1
 {{auth_admin_header}}
+###
+
+# @name blogpostCategoryCreate
+POST {{react_base_url}}/blogpostCategory/createCategory HTTP/1.1
+{{auth_admin_header}}
+
+{
+    "category_name":"Technical"
+}
 ###
