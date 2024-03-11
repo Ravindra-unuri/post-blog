@@ -26,7 +26,17 @@ class BlogpostController extends Controller
 
     public function showBlogpost()
     {
-        //
+        $data = Blogpost::all();
+        if ($data) {
+            return $this->sendSuccessResponse(__('Success'), $data);
+        } else {
+            return $this->sendNotfoundResponse(__('There is no blogpost'), $data);
+        }
+    }
+
+    public function myBlogpost()
+    {
+        // $data=Blogpost::
     }
 
     // public function showDetailedBlogpost()
