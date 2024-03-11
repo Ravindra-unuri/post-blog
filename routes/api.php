@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogpostCategoryController;
+use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
 Route::group(['middleware' => ['auth:user']], function () {
     Route::post('/UserProfile', [UserController::class, 'profile']);
     Route::post('/UserLogout', [UserController::class, 'logout']);
+
+    Route::group(['prefix' => '/blogpost'], function () {
+        Route::post('/storeBlogpost', [BlogpostController::class, 'storeBlogpost']);
+    });
 });

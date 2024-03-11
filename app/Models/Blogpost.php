@@ -11,6 +11,8 @@ class Blogpost extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = "blogpost";
+
     /**
      * The attributes that are mass assignable.
      *

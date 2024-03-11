@@ -1,8 +1,8 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 3|DZfOxoG2nxdTatRA1ajzghnEM2P8qfAXOOwx6vsk
-@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|hABG3Zj2Fdu4UmqGQJPnCk1wIZqp2AFwBke6AJ5x
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|QmyWmojrzCKVUsGJEOkUUyyYiouDKyaM8mR0HUIU
+@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 1|JcjVkaeJebtQVg7WsyKlKiIFA66jNvLTZgV7pF4i
 #-------PING------------#
 ###
 
@@ -40,6 +40,18 @@ POST {{react_base_url}}/UserProfile HTTP/1.1
 # @name userlogout
 POST {{react_base_url}}/UserLogout HTTP/1.1
 {{auth_user_header}}
+###
+
+# @name storeBlogpost
+POST {{react_base_url}}/blogpost/storeBlogpost HTTP/1.1
+{{auth_user_header}}
+
+{
+    "blogpost_name":"Technical_first",
+    "category_id":1,
+    "blogpost_desc":"Hey, i am posting a blog regarding to some technical knowladge hope yoy find it helpful",
+    "upload_file":"hhaa//ad/ad/dad/dad/ad"
+}
 ###
 
 //-----------------------------------------------------------------Admin's api-------------------------------------------------------
