@@ -1,8 +1,8 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|QmyWmojrzCKVUsGJEOkUUyyYiouDKyaM8mR0HUIU
-@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 1|JcjVkaeJebtQVg7WsyKlKiIFA66jNvLTZgV7pF4i
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 4|gmK2jxbD7NZTrzjVHOQqjljonqeUoLoPaJQAGcVT
+@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|3dYVC1tuSWbVPbwvevftUrdeSxZNVgSNOeMc9ztl
 #-------PING------------#
 ###
 
@@ -13,11 +13,11 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"ravindrasingh",
-    "last_name":"unuri",
-    "email":"ravindra@gmail.com",
-    "password":"ravindra123@gmail.com",
-    "password_confirmation":"ravindra123@gmail.com"
+    "first_name":"sid",
+    "last_name":"shukla",
+    "email":"sidshukla@gmail.com",
+    "password":"sidshukla123@gmail.com",
+    "password_confirmation":"sidshukla123@gmail.com"
 }
 ###
 
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"ravindra@gmail.com",
-    "password":"ravindra123@gmail.com"
+    "email":"sidshukla@gmail.com",
+    "password":"sidshukla123@gmail.com"
 }
 
 ###
@@ -47,7 +47,7 @@ POST {{react_base_url}}/blogpost/storeBlogpost HTTP/1.1
 {{auth_user_header}}
 
 {
-    "blogpost_name":"Technical_first",
+    "blogpost_name":"Technical_third",
     "category_id":1,
     "blogpost_desc":"Hey, i am posting a blog regarding to some technical knowladge hope yoy find it helpful",
     "upload_file":"hhaa//ad/ad/dad/dad/ad"
@@ -60,12 +60,18 @@ POST {{react_base_url}}/blogpost/showBlogpost HTTP/1.1
 
 ###
 
+# @name myBlogpost
+POST {{react_base_url}}/blogpost/myBlogpost HTTP/1.1
+{{auth_user_header}}
+
+###
+
 # @name updateBlogpost
-POST {{react_base_url}}/blogpost/updateBlogpost/5 HTTP/1.1
+POST {{react_base_url}}/blogpost/updateBlogpost/1 HTTP/1.1
 {{auth_user_header}}
 
 {
-    "blogpost_name":"Technical_first",
+    "blogpost_name":"Technical_fir",
     "category_id":1,
     "blogpost_desc":"Hey, i am posting a blog regarding to some technical knowladge hope you find it helpful",
     "upload_file":"/facade/assets/image/api.png"
