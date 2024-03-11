@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth:user']], function () {
         Route::post('/storeBlogpost', [BlogpostController::class, 'storeBlogpost']);
         Route::post('/updateBlogpost/{id}', [BlogpostController::class, 'updateBlogpost']);
         Route::post('/showBlogpost', [BlogpostController::class, 'showBlogpost']);
+        Route::post('/myBlogpost', [BlogpostController::class, 'myBlogpost']);
 
     });
 });

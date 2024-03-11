@@ -14,6 +14,7 @@ class BlogpostController extends Controller
         $data = Blogpost::create([
             'blogpost_name' => $request->input('blogpost_name'),
             'category_id' => $request->input('category_id'),
+            'user_id' => auth()->user()->id,
             'blogpost_desc' => $request->input('blogpost_desc'),
             'upload_file' => $request->input('upload_file')
         ]);
@@ -36,7 +37,13 @@ class BlogpostController extends Controller
 
     public function myBlogpost()
     {
-        // $data=Blogpost::
+        $userId = auth()->user()->id;
+        $data = Blogpost::where('user_id', $userId)->get();
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse(__('There are no blog posts for this user.'));
+        } else {
+            return $this->sendSuccessResponse(__('Success'), $data);
+        }
     }
 
     // public function showDetailedBlogpost()
@@ -55,6 +62,7 @@ class BlogpostController extends Controller
         $update = Blogpost::where('id', $id)->update([
             'blogpost_name' => $request->input('blogpost_name'),
             'category_id' => $request->input('category_id'),
+            'user_id' => auth()->user()->id,
             'blogpost_desc' => $request->input('blogpost_desc'),
             'upload_file' => $request->input('upload_file')
         ]);
