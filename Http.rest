@@ -1,8 +1,8 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 4|gmK2jxbD7NZTrzjVHOQqjljonqeUoLoPaJQAGcVT
-@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|3dYVC1tuSWbVPbwvevftUrdeSxZNVgSNOeMc9ztl
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 1|YngJvk5VgZwI0ad0oFBH7IkiOfTBenqGVy8rogTd
+@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
 
@@ -76,6 +76,41 @@ POST {{react_base_url}}/blogpost/updateBlogpost/1 HTTP/1.1
     "blogpost_desc":"Hey, i am posting a blog regarding to some technical knowladge hope you find it helpful",
     "upload_file":"/facade/assets/image/api.png"
 }
+###
+
+# @name doLike
+POST {{react_base_url}}/like/doLike HTTP/1.1
+{{auth_user_header}}
+
+{
+    "user_id":1,
+    "blogpost_id":3
+}
+
+###
+
+# @name doComment
+POST {{react_base_url}}/comment/doComment HTTP/1.1
+{{auth_user_header}}
+
+{
+    "user_id":1,
+    "blogpost_id":3,
+    "comment":"Nices f fwkfnkwjnfkwd"
+}
+
+###
+
+# @name allLike
+POST {{react_base_url}}/like/allLike HTTP/1.1
+{{auth_user_header}}
+
+###
+
+# @name allComment
+POST {{react_base_url}}/comment/allComment HTTP/1.1
+{{auth_user_header}}
+
 ###
 
 //-----------------------------------------------------------------Admin's api-------------------------------------------------------
