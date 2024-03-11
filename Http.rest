@@ -54,6 +54,18 @@ POST {{react_base_url}}/blogpost/storeBlogpost HTTP/1.1
 }
 ###
 
+# @name updateBlogpost
+POST {{react_base_url}}/blogpost/updateBlogpost/5 HTTP/1.1
+{{auth_user_header}}
+
+{
+    "blogpost_name":"Technical_first",
+    "category_id":1,
+    "blogpost_desc":"Hey, i am posting a blog regarding to some technical knowladge hope you find it helpful",
+    "upload_file":"/facade/assets/image/api.png"
+}
+###
+
 //-----------------------------------------------------------------Admin's api-------------------------------------------------------
 
 # @name AdminRegister
