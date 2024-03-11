@@ -10,6 +10,11 @@ class Like extends Model
     use HasFactory;
     protected $table = 'like';
 
+    public function blogpost()
+    {
+        return $this->belongsToMany(Blogpost::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

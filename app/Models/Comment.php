@@ -10,6 +10,11 @@ class Comment extends Model
     use HasFactory;
     protected $table = 'comment';
 
+    public function blogpost()
+    {
+        return $this->belongsTo(Blogpost::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

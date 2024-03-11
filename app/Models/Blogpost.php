@@ -13,6 +13,16 @@ class Blogpost extends Model
 
     protected $table = "blogpost";
 
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function like()
+    {
+        return $this->belongsToMany(Like::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
