@@ -28,20 +28,33 @@ class BlogpostController extends Controller
 
     public function showBlogpost()
     {
-        $data = Blogpost::leftJoin('like as l', 'l.blogpost_id', '=', 'blogpost.id')
-            ->leftJoin('comment as c', 'c.blogpost_id', '=', 'blogpost.id')
-            ->leftJoin('category as ct', 'ct.id', '=', 'blogpost.category_id')
-            ->leftJoin('users as u', 'u.id', '=', 'blogpost.user_id')
-            ->select(
-                'blogpost.id as Blogpost_Id',
-                'blogpost.blogpost_name as Blogpost_Name',
-                'ct.category_name as Category_Name',
-                'u.first_name as User_Name',
-                DB::raw('COUNT(DISTINCT l.id) as Likes'),
-                DB::raw('COUNT(DISTINCT c.id) as Comments')
-            )
-            ->groupBy('blogpost.id', 'blogpost.blogpost_name', 'ct.category_name', 'u.first_name')
-            ->get();
+        // $data = Blogpost::leftJoin('like as l', 'l.blogpost_id', '=', 'blogpost.id')
+        //     ->leftJoin('comment as c', 'c.blogpost_id', '=', 'blogpost.id')
+        //     ->leftJoin('category as ct', 'ct.id', '=', 'blogpost.category_id')
+        //     ->leftJoin('users as u', 'u.id', '=', 'blogpost.user_id')
+        //     ->select(
+        //         'blogpost.id as Blogpost_Id',
+        //         'blogpost.blogpost_name as Blogpost_Name',
+        //         'ct.category_name as Category_Name',
+        //         'u.first_name as User_Name',
+        //         DB::raw('COUNT(DISTINCT l.id) as Likes'),
+        //         DB::raw('COUNT(DISTINCT c.id) as Comments')
+        //     )
+        //     ->groupBy('blogpost.id', 'blogpost.blogpost_name', 'ct.category_name', 'u.first_name')
+        //     ->get();
+
+        $data = Blogpost::with([
+            'category' => function ($query) {
+                $query->select('id', 'category_name');
+            },
+            'user' => function ($query) {
+                $query->select('id', 'first_name', 'last_name');
+            }
+        ])
+            ->withCount('like', 'comment')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
 
         if ($data) {
             return $this->sendSuccessResponse(__('Success'), $data);

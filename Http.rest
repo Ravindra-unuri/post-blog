@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 1|YngJvk5VgZwI0ad0oFBH7IkiOfTBenqGVy8rogTd
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 3|2bQYztOE7P8qRmPVbD6dmm6pYbJ3uaXUJIJu7OyS
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -13,11 +13,11 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"sid",
-    "last_name":"shukla",
-    "email":"sidshukla@gmail.com",
-    "password":"sidshukla123@gmail.com",
-    "password_confirmation":"sidshukla123@gmail.com"
+    "first_name":"ravi",
+    "last_name":"unuri",
+    "email":"ravindra@gmail.com",
+    "password":"ravindra123@gmail.com",
+    "password_confirmation":"ravindra123@gmail.com"
 }
 ###
 
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"sidshukla@gmail.com",
-    "password":"sidshukla123@gmail.com"
+    "email":"ravindra@gmail.com",
+    "password":"ravindra123@gmail.com"
 }
 
 ###
