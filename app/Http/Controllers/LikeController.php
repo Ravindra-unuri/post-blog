@@ -51,10 +51,39 @@ class LikeController extends Controller
         }
     }
 
-
-    public function dislike($blogpost_id)
+    // public function dislike($blogpost_id)
+    // {
+    //     $userId = auth()->user()->id;
+    //     $delete_data = Like::find($blogpost_id);
+    //     if ($delete_data('user_id') == $userId) {
+    //         $deleted = $delete_data->delete();
+    //         if ($deleted) {
+    //             return $this->sendSuccessResponse(__('Dislike Successfully'));
+    //         } else {
+    //             return $this->sendFailedResponse(__('Failed to dislike'));
+    //         }
+    //     } else {
+    //         return $this->sendNotFoundResponse(__('You donnt have a right to dislike'));
+    //     }
+    // }
+    public function dislike($id)
     {
         $userId = auth()->user()->id;
-        Like::where('blogpost_id', $blogpost_id && 'user_id', $userId)->delete();
+
+        $delete_data = Like::where('id', $id)
+            ->where('user_id', $userId)
+            ->first();
+
+        if ($delete_data) {
+            $deleted = $delete_data->delete();
+
+            if ($deleted) {
+                return $this->sendSuccessResponse(__('Dislike Successfully'));
+            } else {
+                return $this->sendFailedResponse(__('Failed to dislike'));
+            }
+        } else {
+            return $this->sendNotFoundResponse(__('You don\'t have the right to dislike'));
+        }
     }
 }

@@ -101,6 +101,12 @@ POST {{react_base_url}}/like/likeDetail/3 HTTP/1.1
 
 ###
 
+# @name dislike
+POST {{react_base_url}}/like/dislike/4 HTTP/1.1
+{{auth_user_header}}
+
+###
+
 # @name doComment
 POST {{react_base_url}}/comment/doComment HTTP/1.1
 {{auth_user_header}}

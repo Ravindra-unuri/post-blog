@@ -72,11 +72,6 @@ class BlogpostController extends Controller
         }
     }
 
-    // public function showDetailedBlogpost()
-    // {
-
-    // }                                                  
-
     public function updateBlogpost(Request $request, $id)
     {
         $blogpost = Blogpost::find($id);
