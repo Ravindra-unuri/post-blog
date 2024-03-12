@@ -12,7 +12,7 @@ class Like extends Model
 
     public function blogpost()
     {
-        return $this->belongsToMany(Blogpost::class);
+        return $this->belongsTo(Blogpost::class, 'blogpost_id');
     }
 
     /**

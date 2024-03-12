@@ -13,14 +13,34 @@ class Blogpost extends Model
 
     protected $table = "blogpost";
 
-    public function comment()
-    {
-        return $this->hasMany(Comment::class);
-    }
+    // public function comment()
+    // {
+    //     return $this->hasMany(Comment::class);
+    // }
+
+    // public function like()
+    // {
+    //     return $this->belongsToMany(Like::class);
+    // }
 
     public function like()
     {
-        return $this->belongsToMany(Like::class);
+        return $this->hasMany(Like::class, 'blogpost_id');
+    }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class, 'blogpost_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
