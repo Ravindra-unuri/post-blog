@@ -53,22 +53,20 @@ class BlogpostController extends Controller
     public function myBlogpost()
     {
         $userId = auth()->user()->id;
-        $data = Blogpost::leftJoin('like as l', 'l.blogpost_id', '=', 'blogpost.id')
-            ->leftJoin('comment as c', 'c.blogpost_id', '=', 'blogpost.id')
-            ->leftJoin('category as ct', 'ct.id', '=', 'blogpost.category_id')
-            ->leftJoin('users as u', 'u.id', '=', 'blogpost.user_id')
-            ->select(
-                'blogpost.id as Blogpost_Id',
-                'blogpost.blogpost_name as Blogpost_Name',
-                'ct.category_name as Category_Name',
-                'u.first_name as User_Name',
-                'blogpost.user_id', // Include user_id in select
-                DB::raw('COUNT(DISTINCT l.id) as Likes'),
-                DB::raw('COUNT(DISTINCT c.id) as Comments')
-            )
-            ->where('blogpost.user_id', $userId) // Filter by user_id
-            ->groupBy('blogpost.id', 'blogpost.blogpost_name', 'ct.category_name', 'u.first_name', 'blogpost.user_id')
-            ->get();
+
+        $data = Blogpost::with([
+            'category' => function ($query) {
+                $query->select('id', 'category_name');
+            },
+            'user' => function ($query) {
+                $query->select('id', 'first_name', 'last_name');
+            }
+        ])
+            ->withCount('like', 'comment')
+            ->where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
         if ($data->isEmpty()) {
             return $this->sendNotFoundResponse(__('There are no blog posts for this user.'));
         } else {
@@ -79,7 +77,7 @@ class BlogpostController extends Controller
     // public function showDetailedBlogpost()
     // {
 
-    // }
+    // }                                                  
 
     public function updateBlogpost(Request $request, $id)
     {

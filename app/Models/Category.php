@@ -13,6 +13,11 @@ class Category extends Model
 
     protected $table = 'category';
 
+    public function blogpost()
+    {
+        return $this->hasMany(Blogpost::class, 'category_id');
+    }
+
 
     /**
      * The attributes that are mass assignable.
