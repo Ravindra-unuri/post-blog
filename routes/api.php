@@ -65,5 +65,6 @@ Route::group(['middleware' => ['auth:user']], function () {
     Route::group(['prefix' => '/comment'], function () {
         Route::post('/doComment', [CommentController::class, 'doComment']);
         Route::post('/allComment', [CommentController::class, 'allComment']);
+        Route::post('/deleteComment/{id}', [CommentController::class, 'deleteComment']);
     });
 });
