@@ -9,11 +9,12 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
     use ResponseTrait;
-    public function doLike(Request $request)
+    public function doLike($blogpost_id)
     {
+        $userId = auth()->user()->id;
         $like = Like::create([
-            'user_id' => $request->input('user_id'),
-            'blogpost_id' => $request->input('blogpost_id')
+            'user_id' => $userId,
+            'blogpost_id' => $blogpost_id
         ]);
         if ($like) {
             return $this->sendSuccessResponse(__('Success to like'));
@@ -33,9 +34,15 @@ class LikeController extends Controller
         }
     }
 
-    public function likeDetail()
+    public function likeDetail($id)
     {
-        $data=Like::leftjoin('');
+        $data = Like::where('blogpost_id', $id)
+            ->leftJoin('users as u', 'u.id', '=', 'like.user_id')
+            ->select(
+                'u.first_name as Liked_By',
+                'like.created_at as Liked_at'
+            )
+            ->get();
 
         if ($data->isEmpty()) {
             return $this->sendNotFoundResponse(__('No likes found.'));
@@ -44,8 +51,10 @@ class LikeController extends Controller
         }
     }
 
-    public function deleteLike()
+
+    public function dislike($blogpost_id)
     {
-        //
+        $userId = auth()->user()->id;
+        Like::where('blogpost_id', $blogpost_id && 'user_id', $userId)->delete();
     }
 }
