@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 3|2bQYztOE7P8qRmPVbD6dmm6pYbJ3uaXUJIJu7OyS
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 4|PngD8qyeNysbwbC6cQpYl2nBR4MFbWkPQOILZkwH
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -78,14 +78,14 @@ POST {{react_base_url}}/blogpost/updateBlogpost/1 HTTP/1.1
 }
 ###
 
-# @name doLike
-POST {{react_base_url}}/like/doLike HTTP/1.1
+# @name deleteBlogpost
+POST {{react_base_url}}/blogpost/deleteBlogpost/1 HTTP/1.1
 {{auth_user_header}}
+###
 
-{
-    "user_id":1,
-    "blogpost_id":3
-}
+# @name doLike
+POST {{react_base_url}}/like/doLike/3 HTTP/1.1
+{{auth_user_header}}
 
 ###
 
@@ -96,7 +96,7 @@ POST {{react_base_url}}/like/allLike HTTP/1.1
 ###
 
 # @name likeDetail
-POST {{react_base_url}}/like/likeDetail/1 HTTP/1.1
+POST {{react_base_url}}/like/likeDetail/3 HTTP/1.1
 {{auth_user_header}}
 
 ###

@@ -51,13 +51,15 @@ Route::group(['middleware' => ['auth:user']], function () {
         Route::post('/updateBlogpost/{id}', [BlogpostController::class, 'updateBlogpost']);
         Route::post('/showBlogpost', [BlogpostController::class, 'showBlogpost']);
         Route::post('/myBlogpost', [BlogpostController::class, 'myBlogpost']);
-
+        Route::post('/deleteBlogpost/{id}', [BlogpostController::class, 'deleteBlogpost']);
     });
 
     Route::group(['prefix' => '/like'], function () {
-        Route::post('/doLike', [LikeController::class, 'doLike']);
+        Route::post('/doLike/{blogpost_id}', [LikeController::class, 'doLike']);
         Route::post('/allLike', [LikeController::class, 'allLike']);
-        Route::post('/likeDetail', [LikeController::class, 'likeDetail']);
+        // Route::post('/likeDetail', [LikeController::class, 'likeDetail']);
+        Route::post('/likeDetail/{id}', [LikeController::class, 'likeDetail']);
+
     });
 
     Route::group(['prefix' => '/comment'], function () {
