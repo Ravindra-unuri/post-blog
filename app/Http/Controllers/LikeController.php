@@ -12,16 +12,22 @@ class LikeController extends Controller
     public function doLike($blogpost_id)
     {
         $userId = auth()->user()->id;
-        $like = Like::create([
-            'user_id' => $userId,
-            'blogpost_id' => $blogpost_id
-        ]);
-        if ($like) {
-            return $this->sendSuccessResponse(__('Success to like'));
+        $check = Like::where('user_id', $userId)->where('blogpost_id', $blogpost_id)->first();
+        if ($check) {
+            return $this->sendConflictResponse(__('Already liked this post'));
         } else {
-            return $this->sendNotfoundResponse(__('Unable to like'));
+            $like = Like::create([
+                'user_id' => $userId,
+                'blogpost_id' => $blogpost_id
+            ]);
+            if ($like) {
+                return $this->sendSuccessResponse(__('Success to like'));
+            } else {
+                return $this->sendNotFoundResponse(__('Unable to like'));
+            }
         }
     }
+
 
     public function allLike()
     {
@@ -51,21 +57,6 @@ class LikeController extends Controller
         }
     }
 
-    // public function dislike($blogpost_id)
-    // {
-    //     $userId = auth()->user()->id;
-    //     $delete_data = Like::find($blogpost_id);
-    //     if ($delete_data('user_id') == $userId) {
-    //         $deleted = $delete_data->delete();
-    //         if ($deleted) {
-    //             return $this->sendSuccessResponse(__('Dislike Successfully'));
-    //         } else {
-    //             return $this->sendFailedResponse(__('Failed to dislike'));
-    //         }
-    //     } else {
-    //         return $this->sendNotFoundResponse(__('You donnt have a right to dislike'));
-    //     }
-    // }
     public function dislike($id)
     {
         $userId = auth()->user()->id;

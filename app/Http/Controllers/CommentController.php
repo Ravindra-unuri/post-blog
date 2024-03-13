@@ -34,6 +34,24 @@ class CommentController extends Controller
         }
     }
 
+    public function commentDetail($id)
+    {
+        $data = Comment::where('blogpost_id', $id)
+            ->leftJoin('users as u', 'u.id', '=', 'comment.user_id')
+            ->select(
+                'u.first_name as Commented_By',
+                'comment.comment as comment',
+                'comment.created_at as Commented_at'
+            )
+            ->get();
+
+        if ($data->isEmpty()) {
+            return $this->sendNotFoundResponse(__('No comments found.'));
+        } else {
+            return $this->sendSuccessResponse(__('Success'), $data);
+        }
+    }
+
     public function deleteComment($id)
     {
         $userId = auth()->user()->id;
