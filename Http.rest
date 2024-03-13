@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 4|PngD8qyeNysbwbC6cQpYl2nBR4MFbWkPQOILZkwH
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 5|FWnwWMUY0r38Dd1FgQg1270KopGW6XQuXJ8CvIyA
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"ravindra@gmail.com",
-    "password":"ravindra123@gmail.com"
+    "email":"sidshukla@gmail.com",
+    "password":"sidshukla123@gmail.com"
 }
 
 ###
@@ -84,7 +84,7 @@ POST {{react_base_url}}/blogpost/deleteBlogpost/1 HTTP/1.1
 ###
 
 # @name doLike
-POST {{react_base_url}}/like/doLike/3 HTTP/1.1
+POST {{react_base_url}}/like/doLike/2 HTTP/1.1
 {{auth_user_header}}
 
 ###
@@ -102,7 +102,7 @@ POST {{react_base_url}}/like/likeDetail/3 HTTP/1.1
 ###
 
 # @name dislike
-POST {{react_base_url}}/like/dislike/4 HTTP/1.1
+POST {{react_base_url}}/like/dislike/8 HTTP/1.1
 {{auth_user_header}}
 
 ###
@@ -117,6 +117,11 @@ POST {{react_base_url}}/comment/doComment HTTP/1.1
     "comment":"Nices f fwkfnkwjnfkwd"
 }
 
+###
+
+# @name commentDetail
+POST {{react_base_url}}/comment/commentDetail/3 HTTP/1.1
+{{auth_user_header}}
 ###
 
 # @name deleteComment
