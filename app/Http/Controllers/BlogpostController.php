@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blogpost;
+use App\Models\Follower;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class BlogpostController extends Controller
@@ -28,14 +30,17 @@ class BlogpostController extends Controller
 
     public function showBlogpost()
     {
-        $data = Blogpost::with([
-            'category' => function ($query) {
-                $query->select('id', 'category_name');
-            },
-            'user' => function ($query) {
-                $query->select('id', 'first_name', 'last_name');
-            }
-        ])
+        $userId = auth()->user()->id;
+        $data = Blogpost::leftjoin('followers as f', 'f.user_id', '=', 'blogpost.user_id')
+        ->where('f.follower_id', $userId)
+            ->with([
+                'category' => function ($query) {
+                    $query->select('id', 'category_name');
+                },
+                'user' => function ($query) {
+                    $query->select('id', 'first_name', 'last_name');
+                }
+            ])
             ->withCount('like', 'comment')
             ->orderBy('created_at', 'desc')
             ->paginate(10);

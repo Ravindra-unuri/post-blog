@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogpostCategoryController;
 use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -33,7 +34,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:admin']], function () {
-    
+
     Route::post('/AdminProfile', [AdminController::class, 'profile']);
     Route::post('/AdminLogout', [AdminController::class, 'logout']);
 
@@ -59,7 +60,6 @@ Route::group(['middleware' => ['auth:user']], function () {
         Route::post('/allLike', [LikeController::class, 'allLike']);
         Route::post('/likeDetail/{id}', [LikeController::class, 'likeDetail']);
         Route::post('/dislike/{id}', [LikeController::class, 'dislike']);
-
     });
 
     Route::group(['prefix' => '/comment'], function () {
@@ -67,6 +67,10 @@ Route::group(['middleware' => ['auth:user']], function () {
         Route::post('/allComment', [CommentController::class, 'allComment']);
         Route::post('/commentDetail/{id}', [CommentController::class, 'commentDetail']);
         Route::post('/deleteComment/{id}', [CommentController::class, 'deleteComment']);
+    });
 
+    Route::group(['prefix' => '/followcontrol'], function () {
+        Route::post('/follow/{userId}', [FollowController::class, 'follow']);
+        Route::delete('/unfollow/{userId}', [FollowController::class, 'unfollow']);
     });
 });
