@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 5|FWnwWMUY0r38Dd1FgQg1270KopGW6XQuXJ8CvIyA
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 10|DlZNAOivBn3ThwfrRjULBtn4I8P4faRMPh3Ayrqf
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -13,11 +13,11 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"ravi",
-    "last_name":"unuri",
-    "email":"ravindra@gmail.com",
-    "password":"ravindra123@gmail.com",
-    "password_confirmation":"ravindra123@gmail.com"
+    "first_name":"jay",
+    "last_name":"lathiya",
+    "email":"jaylathiya@gmail.com",
+    "password":"jaylathiya123@gmail.com",
+    "password_confirmation":"jaylathiya123@gmail.com"
 }
 ###
 
@@ -134,6 +134,19 @@ POST {{react_base_url}}/comment/allComment HTTP/1.1
 {{auth_user_header}}
 
 ###
+
+# @name follow
+POST {{react_base_url}}/followcontrol/follow/3 HTTP/1.1
+{{auth_user_header}}
+
+###
+
+# @name Unfollow
+DELETE  {{react_base_url}}/followcontrol/unfollow/3 HTTP/1.1
+{{auth_user_header}}
+
+###
+
 
 //-----------------------------------------------------------------Admin's api-------------------------------------------------------
 

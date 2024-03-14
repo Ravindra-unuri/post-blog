@@ -13,16 +13,6 @@ class Blogpost extends Model
 
     protected $table = "blogpost";
 
-    // public function comment()
-    // {
-    //     return $this->hasMany(Comment::class);
-    // }
-
-    // public function like()
-    // {
-    //     return $this->belongsToMany(Like::class);
-    // }
-
     public function like()
     {
         return $this->hasMany(Like::class, 'blogpost_id');
