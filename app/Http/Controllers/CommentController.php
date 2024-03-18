@@ -71,11 +71,5 @@ class CommentController extends Controller
         } else {
             return $this->sendNotFoundResponse(__('You don\'t have the right to delete comment'));
         }
-    }
-
-    public function likeDetail()
-    {
-        // $data=Like::all();
-    }
-
+    } 
 }
