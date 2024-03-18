@@ -13,11 +13,11 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"jay",
-    "last_name":"lathiya",
-    "email":"jaylathiya@gmail.com",
-    "password":"jaylathiya123@gmail.com",
-    "password_confirmation":"jaylathiya123@gmail.com"
+    "first_name":"Ravindra",
+    "last_name":"Unuri",
+    "email":"ravindraunuri@gmail.com",
+    "password":"zxcvbnm10213$",
+    "password_confirmation":"zxcvbnm10213$"
 }
 ###
 

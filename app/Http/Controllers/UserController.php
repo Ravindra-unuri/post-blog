@@ -32,7 +32,9 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
-        dispatch(new MailSentJob($user, 'sendmail', 'MailSent_worker'));    
+        // dispatch(new MailSentJob($user->email)); 
+        dispatch(new MailSentJob($user, 'sendmail', 'MailSent_worker')); 
+
         return $this->sendSuccessResponse(__('User Registered Successfully'), $user);
     }
 
