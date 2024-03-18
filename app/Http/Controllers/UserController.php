@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
+use App\Jobs\MailSentJob;
 use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
-        // dispatch(new MailSentJob($user, 'sendmail', 'MailSent_worker'));
+        dispatch(new MailSentJob($user, 'sendmail', 'MailSent_worker'));    
         return $this->sendSuccessResponse(__('User Registered Successfully'), $user);
     }
 
