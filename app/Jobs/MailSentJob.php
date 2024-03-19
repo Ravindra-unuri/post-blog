@@ -14,7 +14,7 @@ use Illuminate\Queue\SerializesModels;
 class MailSentJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $data;
+    protected $user;
     protected $worker_name= 'MailSent_worker';
 
     /**
@@ -22,10 +22,10 @@ class MailSentJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($user)
     {
 
-        $this->data = $data;
+        $this->user = $user;
     }
 
     /**
@@ -36,7 +36,7 @@ class MailSentJob implements ShouldQueue
     public function handle()
     {
         $email= new SendMailTest();
-        mail::to($this->data['email'])->send($email);
+        mail::to($this->user['email'])->send($email);
     }
 }
     

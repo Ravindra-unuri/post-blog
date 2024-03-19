@@ -13,9 +13,9 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"Ravindra",
-    "last_name":"Unuri",
-    "email":"ravindraunuri@gmail.com",
+    "first_name":"Jay",
+    "last_name":"Lathiya",
+    "email":"jaylathiya1548@gmail.com",
     "password":"zxcvbnm10213$",
     "password_confirmation":"zxcvbnm10213$"
 }
