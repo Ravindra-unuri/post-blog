@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 10|DlZNAOivBn3ThwfrRjULBtn4I8P4faRMPh3Ayrqf
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 15|cube5XUEFTBjF2mix7FPQO1WESgQNk7V3g49ZQXw
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -13,9 +13,9 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"Jay",
-    "last_name":"Lathiya",
-    "email":"jaylathiya1548@gmail.com",
+    "first_name":"Montu",
+    "last_name":"Jain",
+    "email":"montujain2618@gmail.com",
     "password":"zxcvbnm10213$",
     "password_confirmation":"zxcvbnm10213$"
 }
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"sidshukla@gmail.com",
-    "password":"sidshukla123@gmail.com"
+    "email":"ravindraunuri@gmail.com",
+    "password":"zxcvbnm10213$"
 }
 
 ###
@@ -47,9 +47,9 @@ POST {{react_base_url}}/blogpost/storeBlogpost HTTP/1.1
 {{auth_user_header}}
 
 {
-    "blogpost_name":"Technical_third",
+    "blogpost_name":"Technical",
     "category_id":1,
-    "blogpost_desc":"Hey, i am posting a blog regarding to some technical knowladge hope yoy find it helpful",
+    "blogpost_desc":"Hey, i am jay lathiya",
     "upload_file":"hhaa//ad/ad/dad/dad/ad"
 }
 ###
@@ -108,13 +108,11 @@ POST {{react_base_url}}/like/dislike/8 HTTP/1.1
 ###
 
 # @name doComment
-POST {{react_base_url}}/comment/doComment HTTP/1.1
+POST {{react_base_url}}/comment/doComment/9 HTTP/1.1
 {{auth_user_header}}
 
 {
-    "user_id":2,
-    "blogpost_id":3,
-    "comment":"Nices f fwkfnkwjnfkwd"
+    "comment":"Nices jay lathiya"
 }
 
 ###
@@ -136,7 +134,7 @@ POST {{react_base_url}}/comment/allComment HTTP/1.1
 ###
 
 # @name follow
-POST {{react_base_url}}/followcontrol/follow/3 HTTP/1.1
+POST {{react_base_url}}/followcontrol/follow/23 HTTP/1.1
 {{auth_user_header}}
 
 ###
