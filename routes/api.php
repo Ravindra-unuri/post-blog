@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
 Route::group(['middleware' => ['auth:user']], function () {
     Route::post('/UserProfile', [UserController::class, 'profile']);
     Route::post('/UserLogout', [UserController::class, 'logout']);
+    Route::post('/get', [UserController::class, 'get']);
 
     Route::group(['prefix' => '/blogpost'], function () {
         Route::post('/storeBlogpost', [BlogpostController::class, 'storeBlogpost']);

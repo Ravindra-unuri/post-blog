@@ -42,6 +42,11 @@ POST {{react_base_url}}/UserLogout HTTP/1.1
 {{auth_user_header}}
 ###
 
+# @name get
+POST {{react_base_url}}/get HTTP/1.1
+{{auth_user_header}}
+###
+
 # @name storeBlogpost
 POST {{react_base_url}}/blogpost/storeBlogpost HTTP/1.1
 {{auth_user_header}}

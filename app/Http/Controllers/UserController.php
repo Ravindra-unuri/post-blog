@@ -64,5 +64,11 @@ class UserController extends Controller
         return $this->sendSuccessResponse(__('User Loggedout Successfully'));
 
     }
+
+    public function get(){
+        $id=auth()->user()->id;
+        $data=User::where('id',$id)->select('id','first_name')->first();
+        return response($data,200);
+    }
 }
 
