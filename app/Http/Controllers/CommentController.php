@@ -3,23 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Mail\NewCommentNotification;
+use App\Models\User;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class CommentController extends Controller
 {
     use ResponseTrait;
-    public function doComment(Request $request)
+
+    public function doComment(Request $request, $bl_id)
     {
-        $like = Comment::create([
-            'user_id' => $request->input('user_id'),
-            'blogpost_id' => $request->input('blogpost_id'),
+        $userId = auth()->user()->id;
+        $comment = Comment::create([
+            'user_id' => $userId,
+            'blogpost_id' => $bl_id,
             'comment' => $request->input('comment')
         ]);
-        if ($like) {
-            return $this->sendSuccessResponse(__('Success to do comment'));
+
+        if ($comment) {
+            // Fetch commenter's name and comment detail
+            $commenterName = $comment->user->name; // Assuming 'name' is the attribute for commenter's name
+            $commentDetail = $comment->comment;
+
+            // Dispatch email notification
+            Mail::to($comment->blogpost->user->email)->send(new NewCommentNotification($commenterName, $commentDetail));
+
+            return response()->json(['message' => 'Comment posted successfully']);
         } else {
-            return $this->sendNotfoundResponse(__('Unable to do comment'));
+            return response()->json(['message' => 'Failed to post comment'], 500);
         }
     }
 
@@ -71,5 +84,5 @@ class CommentController extends Controller
         } else {
             return $this->sendNotFoundResponse(__('You don\'t have the right to delete comment'));
         }
-    } 
+    }
 }
