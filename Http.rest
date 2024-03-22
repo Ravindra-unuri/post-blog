@@ -53,7 +53,8 @@ POST {{react_base_url}}/updatePassword HTTP/1.1
 {{auth_user_header}}
 
 { 
-    "password":"zxcvbnm10"
+    "password":"ABC12345",
+    "old_password":"ABC123"
 }
 ###
 

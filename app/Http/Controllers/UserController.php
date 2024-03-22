@@ -32,9 +32,8 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
-        // dispatch(new MailSentJob($user->email)); 
+
         MailSentJob::dispatch($user);
-        // MailSentJob::dispatch($user, 'sendmail', 'MailSent_worker'); 
 
         return $this->sendSuccessResponse(__('User Registered Successfully'), $user);
     }
@@ -51,23 +50,6 @@ class UserController extends Controller
             'status' => 'failed'
         ], 401);
     }
-
-    // public function updateUser(Request $request, $id)
-    // {
-    // $userId = auth()->user()->id;
-    // $user = User::find($id);
-
-    // $user->update([
-    //     'first_name' => $request->input('first_name'),
-    //     'last_name' => $request->input('last_name'),
-    //     'email' => $request->input('email'),
-    // ]);
-    // if ($updated) {
-    //     return $this->sendSuccessResponse(__('User Updated Successfully'), $updated);
-    // } else {
-    //     return $this->sendFailedResponse(__('Failed to update user'));
-    // }
-    // }
 
     public function updateUser(Request $request)
     {
@@ -102,9 +84,13 @@ class UserController extends Controller
             return $this->sendFailedResponse(__('User not found'));
         }
 
-        $updated = $user->update([
-            'password' => $request->input('password')
-        ]);
+        if ($user->password == $request->old_password) {
+            $updated = $user->update([
+                'password' => $request->input('password')
+            ]);
+        } else {
+            return $this->sendFailedResponse(__('Old Password dose not match'));
+        }
 
         if ($updated) {
             return $this->sendSuccessResponse(__('Password Updated Successfully'), $updated);

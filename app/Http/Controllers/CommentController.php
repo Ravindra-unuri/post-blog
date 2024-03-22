@@ -23,11 +23,9 @@ class CommentController extends Controller
         ]);
 
         if ($comment) {
-            // Fetch commenter's name and comment detail
-            $commenterName = $comment->user->name; // Assuming 'name' is the attribute for commenter's name
+            $commenterName = $comment->user->name;
             $commentDetail = $comment->comment;
 
-            // Dispatch email notification
             Mail::to($comment->blogpost->user->email)->send(new NewCommentNotification($commenterName, $commentDetail));
 
             return response()->json(['message' => 'Comment posted successfully']);
