@@ -71,7 +71,7 @@ class UserController extends Controller
 
     public function updateUser(Request $request)
     {
-        $id=auth()->user()->id;
+        $id = auth()->user()->id;
         $user = User::find($id);
 
         if (!$user) {
@@ -95,13 +95,17 @@ class UserController extends Controller
 
     public function updatePassword(Request $request)
     {
-
-
         $userId = auth()->user()->id;
-        $updated = User::where('id', $userId)
-            ->update([
-                'password' => $request->input('password')
-            ]);
+        $user = User::find($userId);
+
+        if (!$user) {
+            return $this->sendFailedResponse(__('User not found'));
+        }
+
+        $updated = $user->update([
+            'password' => $request->input('password')
+        ]);
+
         if ($updated) {
             return $this->sendSuccessResponse(__('Password Updated Successfully'), $updated);
         } else {
