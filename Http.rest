@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 15|cube5XUEFTBjF2mix7FPQO1WESgQNk7V3g49ZQXw
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 17|paQnYhbH9vCaKXe4v4CFCYLBLNIi7g58W319ZrwA
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -35,6 +35,27 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 # @name userprofile
 POST {{react_base_url}}/UserProfile HTTP/1.1
 {{auth_user_header}}
+###
+
+# @name updateUser
+POST {{react_base_url}}/updateUser HTTP/1.1
+{{auth_user_header}}
+
+{ 
+    "first_name":"Ravindrasingh",
+    "last_name":"Unuri",
+    "email":"ravindraunuri@gmail.com"
+}
+###
+
+# @name updatePassword
+POST {{react_base_url}}/updatePassword HTTP/1.1
+{{auth_user_header}}
+
+{ 
+    "password":"zxcvbnm10213$",
+    "password_confirmation":"zxcvbnm10213$"
+}
 ###
 
 # @name userlogout
