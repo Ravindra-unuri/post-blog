@@ -51,7 +51,7 @@ Route::group(['middleware' => ['auth:user']], function () {
     //     dd($request->post());
     // });
     
-    Route::post('/updatePassword/{id}', [UserController::class, 'updatePassword']);
+    Route::post('/updatePassword', [UserController::class, 'updatePassword']);
     Route::post('/get', [UserController::class, 'get']);
 
     Route::group(['prefix' => '/blogpost'], function () {
