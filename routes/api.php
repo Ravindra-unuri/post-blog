@@ -46,6 +46,12 @@ Route::group(['middleware' => ['auth:admin']], function () {
 Route::group(['middleware' => ['auth:user']], function () {
     Route::post('/UserProfile', [UserController::class, 'profile']);
     Route::post('/UserLogout', [UserController::class, 'logout']);
+    Route::post('/updateUser', [UserController::class, 'updateUser']);
+    // Route::post('/updateUser', function(Request $request){
+    //     dd($request->post());
+    // });
+    
+    Route::post('/updatePassword/{id}', [UserController::class, 'updatePassword']);
     Route::post('/get', [UserController::class, 'get']);
 
     Route::group(['prefix' => '/blogpost'], function () {
