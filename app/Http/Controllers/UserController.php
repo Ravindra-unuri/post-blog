@@ -99,7 +99,7 @@ class UserController extends Controller
         }
     }
 
-    public function profile()
+    public function MyProfile()
     {
         $data = auth()->user();
         return $this->sendSuccessResponse(__('User Profile'), $data);

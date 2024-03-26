@@ -32,8 +32,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 
 ###
 
-# @name userprofile
-POST {{react_base_url}}/UserProfile HTTP/1.1
+# @name myProfile
+POST {{react_base_url}}/MyProfile HTTP/1.1
 {{auth_user_header}}
 ###
 

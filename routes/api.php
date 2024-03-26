@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth:admin']], function () {
 });
 
 Route::group(['middleware' => ['auth:user']], function () {
-    Route::post('/UserProfile', [UserController::class, 'profile']);
+    Route::post('/MyProfile', [UserController::class, 'MyProfile']);
     Route::post('/UserLogout', [UserController::class, 'logout']);
     Route::post('/updateUser', [UserController::class, 'updateUser']);
     // Route::post('/updateUser', function(Request $request){
