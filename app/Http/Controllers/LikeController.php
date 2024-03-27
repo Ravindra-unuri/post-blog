@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Like;
 use App\Traits\ResponseTrait;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
@@ -28,7 +30,6 @@ class LikeController extends Controller
         }
     }
 
-
     public function allLike()
     {
         $data = Like::all();
@@ -40,41 +41,66 @@ class LikeController extends Controller
         }
     }
 
-    public function likeDetail($id)
+    public function likeDetail(Like $like, $blogpostId)
     {
-        $data = Like::where('blogpost_id', $id)
-            ->leftJoin('users as u', 'u.id', '=', 'like.user_id')
-            ->select(
-                'u.first_name as Liked_By',
-                'like.created_at as Liked_at'
-            )
-            ->get();
+        try {
+            $likes = $like->where('blogpost_id', $blogpostId)
+                ->with('user:id,first_name')
+                ->get(['user_id', 'blogpost_id', 'created_at']);
 
-        if ($data->isEmpty()) {
-            return $this->sendNotFoundResponse(__('No likes found.'));
-        } else {
-            return $this->sendSuccessResponse(__('Success'), $data);
+            if ($likes->isEmpty()) {
+                return $this->sendNotFoundResponse(__('No likes found.'));
+            }
+
+            return $this->sendNotSuccessResponse(__('Success'), $likes);
+        } catch (ModelNotFoundException $e) {
+            return $this->sendNotFoundResponse(__('Blog post not found.'));
+        } catch (\Exception $e) {
+            return $this->sendServerErrorResponse(__('Internal server error.'));
         }
     }
 
+    // public function dislike($id)
+    // {
+    //     $userId = auth()->user()->id;
+
+    //     $delete_data = Like::where('blogpost_id', $id)
+    //         ->where('user_id', $userId)
+    //         ->first();
+
+    //     if ($delete_data) {
+    //         $deleted = $delete_data->delete();
+
+    //         if ($deleted) {
+    //             return $this->sendSuccessResponse(__('Dislike Successfully'));
+    //         } else {
+    //             return $this->sendFailedResponse(__('Failed to dislike'));
+    //         }
+    //     } else {
+    //         return $this->sendNotFoundResponse(__('Requested like not found for dislike'));
+    //     }
+    // }
     public function dislike($id)
     {
         $userId = auth()->user()->id;
 
-        $delete_data = Like::where('id', $id)
-            ->where('user_id', $userId)
-            ->first();
+        try {
+            DB::beginTransaction();
 
-        if ($delete_data) {
-            $deleted = $delete_data->delete();
+            $deleteCount = Like::where('blogpost_id', $id)
+                ->where('user_id', $userId)
+                ->delete();
 
-            if ($deleted) {
-                return $this->sendSuccessResponse(__('Dislike Successfully'));
+            if ($deleteCount > 0) {
+                DB::commit();
+                return ['message' => 'Dislike Successfully'];
             } else {
-                return $this->sendFailedResponse(__('Failed to dislike'));
+                DB::rollBack();
+                return ['message' => 'Requested like not found for dislike'];
             }
-        } else {
-            return $this->sendNotFoundResponse(__('You don\'t have the right to dislike'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return ['message' => 'Failed to dislike'];
         }
     }
 }
