@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
 
 class Like extends Model
 {
@@ -13,6 +15,20 @@ class Like extends Model
     public function blogpost()
     {
         return $this->belongsTo(Blogpost::class, 'blogpost_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        // Assuming $value is in UTC format
+        $utcDate = Carbon::parse($value);
+        $indianDate = $utcDate->timezone('Asia/Kolkata')->format('d-m-Y H:i:s');
+
+        return $indianDate;
     }
 
     /**

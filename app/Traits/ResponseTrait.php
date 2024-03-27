@@ -76,4 +76,16 @@ trait ResponseTrait
             $this->status_failed
         );
     }
+
+    public function sendServerErrorResponse($message, $data = null, $code = null)
+    {
+        return response(
+            [
+                'code' => $code ?? $this->status_servererror,
+                'message' => $message,
+                'data' => $data ?? (object) [],
+            ],
+            $this->status_servererror
+        );
+    }
 }
