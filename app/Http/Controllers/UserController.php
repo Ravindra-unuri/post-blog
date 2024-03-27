@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Jobs\MailSentJob;
 use App\Models\User;
 use App\Traits\ResponseTrait;
@@ -11,7 +13,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -38,33 +40,27 @@ class UserController extends Controller
         return $this->sendSuccessResponse(__('User Registered Successfully'), $user);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $user = User::where('email', $request->email)->first();
         if ($user && $request->password == $user->password) {
             $token = $user->createToken($request->email)->plainTextToken;
             return $this->sendSuccessResponse(__('User Loggedin Successfully'), null, $token);
         }
-        return response([
-            'messsage' => 'Unauthorized User',
-            'status' => 'failed'
-        ], 401);
+
+        return $this->sendFailedResponse(__('Unauthorized User'));
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(UpdateUserRequest $request)
     {
         $id = auth()->user()->id;
         $user = User::find($id);
 
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
+            return $this->sendNotFoundResponse(__('User not found'));
         }
 
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,'
-        ]);
+        $validatedData = $request->validated();
 
         $user->update([
             'first_name' => $validatedData['first_name'],
@@ -72,8 +68,9 @@ class UserController extends Controller
             'email' => $validatedData['email'],
         ]);
 
-        return response()->json(['message' => 'User updated successfully', 'user' => $user]);
+        return $this->sendSuccessResponse(__('User updated successfully'), $user);
     }
+
 
     public function updatePassword(Request $request)
     {
