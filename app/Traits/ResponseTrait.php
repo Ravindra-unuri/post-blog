@@ -8,6 +8,7 @@ trait ResponseTrait
     private $status_conflict = 409;
     private $status_notfound = 404;
     private $status_failed = 400;
+    private $status_servererror = 500;
 
 
     /**
