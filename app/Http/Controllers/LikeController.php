@@ -11,33 +11,48 @@ use Illuminate\Http\Request;
 class LikeController extends Controller
 {
     use ResponseTrait;
-    public function doLike($blogpost_id)
+
+    public function doLike($blogpostId)
     {
         $userId = auth()->user()->id;
-        $check = Like::where('user_id', $userId)->where('blogpost_id', $blogpost_id)->first();
-        if ($check) {
-            return $this->sendConflictResponse(__('Already liked this post'));
-        } else {
-            $like = Like::create([
-                'user_id' => $userId,
-                'blogpost_id' => $blogpost_id
-            ]);
-            if ($like) {
-                return $this->sendSuccessResponse(__('Success to like'));
-            } else {
-                return $this->sendNotFoundResponse(__('Unable to like'));
+
+        try {
+            DB::beginTransaction();
+
+            $existingLike = Like::where('user_id', $userId)
+                ->where('blogpost_id', $blogpostId)
+                ->exists();
+
+            if ($existingLike) {
+                DB::rollBack();
+                return $this->sendConflictResponse(__('Already liked this post.'));
             }
+
+            Like::create([
+                'user_id' => $userId,
+                'blogpost_id' => $blogpostId
+            ]);
+
+            DB::commit();
+            return $this->sendSuccessResponse(__('Success to like.'));
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->sendFailedResponse(__('Unable to like.'));
         }
     }
 
     public function allLike()
     {
-        $data = Like::all();
+        try {
+            $likes = Like::all();
 
-        if ($data->isEmpty()) {
-            return $this->sendNotFoundResponse(__('No likes found.'));
-        } else {
-            return $this->sendSuccessResponse(__('Success'), $data);
+            if ($likes->isEmpty()) {
+                return $this->sendNotFoundResponse(__('No likes found.'));
+            } else {
+                return $this->sendSuccessResponse(__('Success'), $likes);
+            }
+        } catch (\Exception $e) {
+            return $this->sendFailedResponse(__('Failed to fetch likes.'));
         }
     }
 
@@ -52,7 +67,7 @@ class LikeController extends Controller
                 return $this->sendNotFoundResponse(__('No likes found.'));
             }
 
-            return $this->sendNotSuccessResponse(__('Success'), $likes);
+            return $this->sendSuccessResponse(__('Success'), $likes);
         } catch (ModelNotFoundException $e) {
             return $this->sendNotFoundResponse(__('Blog post not found.'));
         } catch (\Exception $e) {
@@ -60,26 +75,6 @@ class LikeController extends Controller
         }
     }
 
-    // public function dislike($id)
-    // {
-    //     $userId = auth()->user()->id;
-
-    //     $delete_data = Like::where('blogpost_id', $id)
-    //         ->where('user_id', $userId)
-    //         ->first();
-
-    //     if ($delete_data) {
-    //         $deleted = $delete_data->delete();
-
-    //         if ($deleted) {
-    //             return $this->sendSuccessResponse(__('Dislike Successfully'));
-    //         } else {
-    //             return $this->sendFailedResponse(__('Failed to dislike'));
-    //         }
-    //     } else {
-    //         return $this->sendNotFoundResponse(__('Requested like not found for dislike'));
-    //     }
-    // }
     public function dislike($id)
     {
         $userId = auth()->user()->id;
@@ -93,14 +88,14 @@ class LikeController extends Controller
 
             if ($deleteCount > 0) {
                 DB::commit();
-                return ['message' => 'Dislike Successfully'];
+                return $this->sendNotSuccessResponse(__('Dislike Successfully'));
             } else {
                 DB::rollBack();
-                return ['message' => 'Requested like not found for dislike'];
+                return $this->sendNotFoundResponse(__('Requested like not found for dislike.'));
             }
         } catch (\Exception $e) {
             DB::rollBack();
-            return ['message' => 'Failed to dislike'];
+            return $this->sendFailedResponse(__('Failed to dislike.'));
         }
     }
 }
