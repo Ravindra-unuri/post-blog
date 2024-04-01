@@ -1,7 +1,7 @@
 @host = http://127.0.0.1:8000
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
-@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 21|9iMoC2tFqh3OJA6kJuhuegAgHqZc8JKvVBuflbnh
+@auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 4|UPQJLd4YsBPlyfZ5oGQH466EmAbYReKCELa4zkuS
 @auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
 #-------PING------------#
 ###
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"ravindraunuri@gmail.com",
-    "password":"ABC1234"
+    "email":"montujain2618@gmail.com",
+    "password":"zxcvbnm12013$"
 }
 ###
 
@@ -52,8 +52,9 @@ POST {{react_base_url}}/updatePassword HTTP/1.1
 {{auth_user_header}}
 
 { 
-    "password":"ABC12345",
-    "old_password":"ABC123"
+    "old_password":"zxcvbnm1013$",
+    "password":"zxcvbnm12013$",
+    "password_confirmation":"zxcvbnm12013$"
 }
 ###
 

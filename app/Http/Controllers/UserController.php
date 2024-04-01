@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Jobs\MailSentJob;
 use App\Models\User;
@@ -72,22 +73,25 @@ class UserController extends Controller
     }
 
 
-    public function updatePassword(Request $request)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
-        $userId = auth()->user()->id;
-        $user = User::find($userId);
+        $user = auth()->user();
 
         if (!$user) {
             return $this->sendFailedResponse(__('User not found'));
         }
 
-        if ($user->password == $request->old_password) {
-            $updated = $user->update([
-                'password' => $request->input('password')
-            ]);
-        } else {
-            return $this->sendFailedResponse(__('Old Password dose not match'));
+        if ($user->password !== $request->old_password) {
+            return $this->sendFailedResponse(__('Old Password does not match'));
         }
+
+        if ($request->old_password === $request->password) {
+            return $this->sendConflictResponse(__('Old Password and New Password cannot be the same'));
+        }
+
+        $updated = $user->update([
+            'password' => $request->password
+        ]);
 
         if ($updated) {
             return $this->sendSuccessResponse(__('Password Updated Successfully'), $updated);
@@ -95,6 +99,7 @@ class UserController extends Controller
             return $this->sendFailedResponse(__('Failed to Update Password'));
         }
     }
+
 
     public function MyProfile()
     {
