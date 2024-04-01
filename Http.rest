@@ -93,7 +93,7 @@ POST {{react_base_url}}/blogpost/myBlogpost HTTP/1.1
 ###
 
 # @name updateBlogpost
-POST {{react_base_url}}/blogpost/updateBlogpost/1 HTTP/1.1
+POST {{react_base_url}}/blogpost/updateBlogpost/2 HTTP/1.1
 {{auth_user_header}}
 
 {
