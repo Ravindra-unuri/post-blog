@@ -2,7 +2,7 @@
 @react_base_url = {{host}}/api
 @public_header = Content-Type: applicatio/json\r\nAccept: application/json\r\nAccept-Language: en
 @auth_user_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 4|UPQJLd4YsBPlyfZ5oGQH466EmAbYReKCELa4zkuS
-@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 2|Q8dU8lBQIijBiysui3JKswJBRIC5dLoWMuZ9zayr
+@auth_admin_header = Content-Type: application/json\r\nAccept: application/json\r\nAccept-Language: en\r\nAuthorization: Bearer 7|QdYvpZQRCiwWYLffsmysBUbtK5I6uXLJRabtL13B
 #-------PING------------#
 ###
 
@@ -213,6 +213,21 @@ POST {{react_base_url}}/blogpostCategory/createCategory HTTP/1.1
 {{auth_admin_header}}
 
 {
-    "category_name":"Technical"
+    "category_name":"Technica"
 }
+###
+
+# @name updateCategory
+POST {{react_base_url}}/blogpostCategory/updateCategory/2 HTTP/1.1
+{{auth_admin_header}}
+
+{
+    "category_name":"Tech"
+}
+###
+
+# @name deleteCategory
+POST {{react_base_url}}/blogpostCategory/deleteCategory/2 HTTP/1.1
+{{auth_admin_header}}
+
 ###

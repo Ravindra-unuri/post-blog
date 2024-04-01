@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegistrationRequest;
 use App\Models\Admin;
@@ -34,7 +35,7 @@ class AdminController extends Controller
         return $this->sendSuccessResponse(__('Admin Registered Successfully'), $user);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $user = Admin::where('email', $request->email)->first();
         if ($user && $request->password == $user->password) {
