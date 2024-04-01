@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class BlogpostControllerRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,7 @@ class BlogpostControllerRequest extends FormRequest
     public function rules()
     {
         return [
-            'blogpost_name' =>'required',
-            'category_id' =>'required',
-            'blogpost_desc' =>'required|min:7|max:100',
-            'upload_file' =>'required',
+            'comment' => 'required'
         ];
     }
 }

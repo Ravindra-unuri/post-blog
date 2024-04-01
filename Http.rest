@@ -138,7 +138,7 @@ POST {{react_base_url}}/comment/doComment/9 HTTP/1.1
 {{auth_user_header}}
 
 {
-    "comment":"Nices jay lathiya"
+    "comment":""
 }
 
 ###
