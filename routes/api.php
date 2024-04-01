@@ -40,6 +40,8 @@ Route::group(['middleware' => ['auth:admin']], function () {
 
     Route::group(['prefix' => '/blogpostCategory'], function () {
         Route::post('/createCategory', [BlogpostCategoryController::class, 'createCategory']);
+        Route::post('/updateCategory/{id}', [BlogpostCategoryController::class, 'updateCategory']);
+        Route::post('/deleteCategory/{id}', [BlogpostCategoryController::class, 'deleteCategory']);
     });
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -10,15 +11,8 @@ class BlogpostCategoryController extends Controller
 {
     use ResponseTrait;
 
-    public function createCategory(Request $request)
+    public function createCategory(CategoryRequest $request)
     {
-        // dd($request);
-        $existingCategory = Category::where('category_name', $request->input('category_name'))->first();
-
-        if ($existingCategory) {
-            return $this->sendConflictResponse(__('Category already exists'), $existingCategory);
-        }
-
         $category = Category::create([
             'category_name' => $request->input('category_name'),
         ]);
@@ -50,14 +44,14 @@ class BlogpostCategoryController extends Controller
         }
     }
 
-    public function updateCategory($id, $request)
+    public function updateCategory(CategoryRequest $request, Category $category)
     {
-        $category = Category::findOrFail($id);
         if ($category) {
             $category->update([
                 'category_name' => $request->input('category_name'),
             ]);
-            return $this->sendNotSuccessResponse(__('Requested Category Updated Successfully'));
+
+            return $this->sendSuccessResponse(__('Requested Category Updated Successfully'), $category);
         } else {
             return $this->sendNotFoundResponse(__('Requested Category Not Found'));
         }
