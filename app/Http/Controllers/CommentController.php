@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Mail\NewCommentNotification;
 use App\Models\User;
@@ -13,7 +14,7 @@ class CommentController extends Controller
 {
     use ResponseTrait;
 
-    public function doComment(Request $request, $bl_id)
+    public function doComment(CommentRequest $request, $bl_id)
     {
         $userId = auth()->user()->id;
         $comment = Comment::create([
