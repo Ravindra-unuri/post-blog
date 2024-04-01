@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogpostControllerRequest;
 use App\Models\Blogpost;
 use App\Models\Follower;
 use App\Traits\ResponseTrait;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class BlogpostController extends Controller
 {
     use ResponseTrait;
-    public function storeBlogpost(Request $request)
+    public function storeBlogpost(BlogpostControllerRequest $request)
     {
         $data = Blogpost::create([
             'blogpost_name' => $request->input('blogpost_name'),
@@ -77,7 +78,7 @@ class BlogpostController extends Controller
         }
     }
 
-    public function updateBlogpost(Request $request, $id)
+    public function updateBlogpost(BlogpostControllerRequest $request, $id)
     {
         $blogpost = Blogpost::find($id);
 
