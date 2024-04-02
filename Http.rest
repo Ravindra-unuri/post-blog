@@ -13,9 +13,9 @@ POST {{react_base_url}}/UserRegister HTTP/1.1
 {{public_header}}
 
 { 
-    "first_name":"Montu",
-    "last_name":"Jain",
-    "email":"montujain2618@gmail.com",
+    "first_name":"Ravindra",
+    "last_name":"nuri",
+    "email":"ravindraunuri@gmail.com",
     "password":"zxcvbnm10213$",
     "password_confirmation":"zxcvbnm10213$"
 }
@@ -26,8 +26,8 @@ POST {{react_base_url}}/UserLogin HTTP/1.1
 {{public_header}}
 
 {
-    "email":"montujain2618@gmail.com",
-    "password":"zxcvbnm12013$"
+    "email":"ravindraunuri@gmail.com",
+    "password":"zxcvbnm10213$"
 }
 ###
 
@@ -169,6 +169,26 @@ POST {{react_base_url}}/followcontrol/follow/23 HTTP/1.1
 DELETE  {{react_base_url}}/followcontrol/unfollow/3 HTTP/1.1
 {{auth_user_header}}
 
+###
+
+# @name sendMessage
+POST {{react_base_url}}/messagecontrol/messages/send HTTP/1.1
+{{auth_user_header}}
+
+{
+    "receiver_id":1,
+    "message":"Hii"
+}
+
+###
+
+# @name getMessages
+get {{react_base_url}}/messagecontrol/messages/ HTTP/1.1
+{{auth_user_header}}
+
+{
+    "sender_id":2
+}
 ###
 
 
