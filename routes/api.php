@@ -7,6 +7,7 @@ use App\Http\Controllers\BlogpostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -52,7 +53,7 @@ Route::group(['middleware' => ['auth:user']], function () {
     // Route::post('/updateUser', function(Request $request){
     //     dd($request->post());
     // });
-    
+
     Route::post('/updatePassword', [UserController::class, 'updatePassword']);
     Route::post('/get', [UserController::class, 'get']);
 
@@ -81,5 +82,10 @@ Route::group(['middleware' => ['auth:user']], function () {
     Route::group(['prefix' => '/followcontrol'], function () {
         Route::post('/follow/{userId}', [FollowController::class, 'follow']);
         Route::delete('/unfollow/{userId}', [FollowController::class, 'unfollow']);
+    });
+
+    Route::group(['prefix' => '/messagecontrol'], function () {
+        Route::post('/messages/send', [MessageController::class, 'sendMessage']);
+        Route::get('/messages', [MessageController::class, 'getMessages']);
     });
 });
